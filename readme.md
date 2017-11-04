@@ -1,2 +1,2 @@
-# Project 4
+# Decider!
 <http://p4.ruthp.me>
