@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Stat;
 
-class DatabaseSeeder extends Seeder
+class StatsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AthletesTableSeeder::class);
-        $this->call(VideosTableSeeder::class);
+        //
     }
 }

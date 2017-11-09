@@ -19,7 +19,7 @@ class CreateAthletesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->char('gender', 1);
+            $table->char('gender');
             $table->string('school');
             $table->decimal('gpa', 3, 2);
         });
