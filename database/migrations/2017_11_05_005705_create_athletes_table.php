@@ -14,7 +14,7 @@ class CreateAthletesTable extends Migration
     public function up()
     {
         Schema::create('athletes', function (Blueprint $table) {
-            $table->increments('athletes_id');
+            $table->increments('id');
             $table->timestamps();
             $table->string('first_name');
             $table->string('last_name');

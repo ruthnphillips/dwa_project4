@@ -14,10 +14,10 @@ class CreateVideoRankingsTable extends Migration
     public function up()
     {
         Schema::create('video_rankings', function (Blueprint $table) {
-            $table->increments('video_rankings_id');
+            $table->increments('id');
             $table->timestamps();
             $table->integer('videos_id')->unsigned();
-            $table->foreign('videos_id')->references('videos_id')->on('videos')->onDelete('cascade');
+            $table->foreign('videos_id')->references('id')->on('videos')->onDelete('cascade');
             $table->integer('rank');
             $table->integer('votes');
             $table->string('voting_link')->comment('url to vote for this video');

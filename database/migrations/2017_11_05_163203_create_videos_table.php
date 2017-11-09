@@ -14,10 +14,10 @@ class CreateVideosTable extends Migration
     public function up()
     {
         Schema::create('videos', function (Blueprint $table) {
-            $table->increments('videos_id');
+            $table->increments('id');
             $table->timestamps();
             $table->integer('athletes_id')->unsigned();
-            $table->foreign('athletes_id')->references('athletes_id')->on('athletes');
+            $table->foreign('athletes_id')->references('id')->on('athletes');
             $table->string('sport')->comment('example, football, basketball');
             $table->string('position')->comment('example, quaterback, pointguard');
             $table->boolean('submitted')->comment('if video is submitted for voting');
