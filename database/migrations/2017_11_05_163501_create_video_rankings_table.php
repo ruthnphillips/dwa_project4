@@ -18,9 +18,8 @@ class CreateVideoRankingsTable extends Migration
             $table->timestamps();
             $table->integer('videos_id')->unsigned();
             $table->foreign('videos_id')->references('id')->on('videos')->onDelete('cascade');
-            $table->integer('rank');
+            $table->integer('rank')->nullable();
             $table->integer('votes');
-            $table->string('voting_link')->comment('url to vote for this video');
         });
     }
 

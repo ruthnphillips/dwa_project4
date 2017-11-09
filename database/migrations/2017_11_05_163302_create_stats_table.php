@@ -18,7 +18,7 @@ class CreateStatsTable extends Migration
             $table->timestamps();
             $table->integer('athletes_id')->unsigned();
             $table->foreign('athletes_id')->references('id')->on('athletes')->onDelete('cascade');
-            $table->integer('videos_id')->unsigned();
+            $table->integer('videos_id')->unsigned()->nullable();
             $table->foreign('videos_id')->references('id')->on('videos');
             $table->string('match_name')->comment('example Bulls vs Rams');
             $table->date('match_date');
