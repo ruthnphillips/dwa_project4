@@ -14,7 +14,7 @@
 
             <!-- input to enter first name -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="first_name">First Name:</label>
+                <label class="control-label col-sm-2" for="first_name">First Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="first_name" name='first_name'
                         placeholder="(required) First Name" required value='{{old('first_name')}}'>
@@ -24,7 +24,7 @@
 
             <!-- input to enter last name -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="last_name">Last Name:</label>
+                <label class="control-label col-sm-2" for="last_name">Last Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="last_name" name='last_name'
                         placeholder="(required) Last Name" required value='{{old('last_name')}}'>
@@ -34,7 +34,7 @@
 
             <!-- input to enter email address -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="email">email:</label>
+                <label class="control-label col-sm-2" for="email">email</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="email" name='email'
                         placeholder="(required) email" required value='{{old('email')}}'>
@@ -44,7 +44,7 @@
 
             <!-- radio button to choose gender (Male/Female) -->
             <div class='form-group'>
-                <label class="control-label col-sm-2" for="Last_name">Gender:</label>
+                <label class="control-label col-sm-2" for="Last_name">Gender</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">
                         <input type="radio" name="gender" value="1" @if(old('gender')) checked @endif>
@@ -59,7 +59,7 @@
 
             <!-- input to enter School -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="Last_name">School:</label>
+                <label class="control-label col-sm-2" for="Last_name">School</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="school_name" name='school_name'
                         placeholder="School Name" value='{{old('school_name')}}'>
@@ -68,7 +68,7 @@
             </div>
                 <!-- input to enter GPA -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="gpa">GPA:</label>
+                <label class="control-label col-sm-2" for="gpa">GPA</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="gpa" name='gpa'
                         placeholder="0-5" value='{{old('gpa')}}'>
