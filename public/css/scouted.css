@@ -1,28 +1,62 @@
 /*
 Author: Ruth P
 */
+/* box sizing: http://www.paulirish.com/2012/box-sizing-border-box-ftw */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size:62.5%; /* http://snook.ca/archives/html_and_css/font-size-with-rem */
+    color:@black;
+    font-family: 'Open Sans Condensed', Helvetica, Arial, sans-serif;
+    letter-spacing:1.1;
+
+    /* sticky footer */
+    position: relative;
+    min-height: 100%;
+}
 
 body {
-    font-family: Helvetica,Arial,sans-serif;
-    background-color: #fff;
-    margin: 0 auto;
+    /* Default font-size */
+    font-size:16px;
+    font-size:1.6rem;
+
+    /* sticky footer - match footer height */
+    margin-bottom: 30px;
+}
+header {
+    text-align:center;
+    margin-top:20px;
 }
 
-.error{
-    color: red;
+footer {
+    text-align:center;
+    background-color:#eee;
+
+    /* sticky footer */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height:30px;
+    line-height:30px; /* Vertically center the text there */
 }
+
+/*----------------------------------------------------
+Typography
+-----------------------------------------------------*/
 
 h1, h2, header{
 	text-align: center;
 }
 
-footer {
-  background-color: #efefef;
-  text-align: center;
-}
-
-label{
-    font-size:20px;
+h2{
+    text-transform: uppercase;
+    font-family: Georgia, serif
+    color: #404040;
+    font-size: 20px;
 }
 
 li {
@@ -31,4 +65,89 @@ li {
 
 ul {
   list-style-type: none;
+}
+
+/*----------------------------------------------------
+Forms https://www.sanwebe.com/2014/08/css-html-forms-designs
+-----------------------------------------------------*/
+.error{
+    color: red;
+}
+
+.form-group.required .control-label:after {
+   content:"*";
+   color:red;
+}
+
+label{
+    text-transform: uppercase;
+    font-size: 16px;
+
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="time"],
+input[type="url"],
+input[type="password"],
+textarea,
+select
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border-bottom: 1px solid #ddd;
+    font: 18px Arial, Helvetica, sans-serif;
+    height: 35px;
+}
+textarea{
+    resize:none;
+    overflow: hidden;
+}
+input[type="button"],
+input[type="submit"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+/*----------------------------------------------------
+Misc
+-----------------------------------------------------*/
+
+/* Clear Fix: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.cf:before,
+.cf:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
+}
+.cf:after {
+    clear: both;
+}
+.cf {
+    *zoom: 1;
 }

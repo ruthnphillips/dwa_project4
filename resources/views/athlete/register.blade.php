@@ -14,31 +14,31 @@
             {{ csrf_field() }}
 
             <!-- input to enter first name -->
-            <div class="form-group">
+            <div class="form-group required">
                 <label class="control-label col-sm-2" for="first_name">First Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="first_name" name='first_name'
-                        placeholder="(required) First Name" required value='{{old('first_name')}}'>
+                        placeholder="(required)" required="required" value='{{old('first_name')}}'>
                     @include('modules.error-field', ['fieldName' => 'first_name'])
                 </div>
             </div>
 
             <!-- input to enter last name -->
-            <div class="form-group">
+            <div class="form-group required">
                 <label class="control-label col-sm-2" for="last_name">Last Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="last_name" name='last_name'
-                        placeholder="(required) Last Name" required value='{{old('last_name')}}'>
+                        placeholder="(required)" required="required" value='{{old('last_name')}}'>
                     @include('modules.error-field', ['fieldName' => 'last_name'])
                 </div>
             </div>
 
             <!-- input to enter email address -->
-            <div class="form-group">
+            <div class="form-group required">
                 <label class="control-label col-sm-2" for="email">email</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="email" name='email'
-                        placeholder="(required) email" required value='{{old('email')}}'>
+                        placeholder="(required)" required="required" value='{{old('email')}}'>
                     @include('modules.error-field', ['fieldName' => 'email'])
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <label class="control-label col-sm-2" for="Last_name">School</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="school_name" name='school_name'
-                        placeholder="School Name" value='{{old('school_name')}}'>
+                        value='{{old('school_name')}}'>
                     @include('modules.error-field', ['fieldName' => 'school_name'])
                 </div>
             </div>
