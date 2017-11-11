@@ -15,8 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/athlete-register-form', 'AthleteController@registerForm');
-Route::get('/athlete-register-submit', 'AthleteController@registerFormSubmit');
+Route::get('/register-athlete-form', 'AthleteController@registerForm');
+Route::post('/store-athlete', 'AthleteController@storeAthlete');
+Route::get('/athlete/success', 'AthleteController@success');
 
 Route::get('/debug', function () {
 

@@ -8,8 +8,10 @@
 
 @section('content')
     <div class="container">
-        <form method='GET' action='/athlete-register-submit'>
-            
+        <form method='POST' action='/store-athlete'>
+
+            {{ csrf_field() }}
+
                 <!-- input to enter first name -->
             <div class="row">
                 <div class="form-group col-sm-8">

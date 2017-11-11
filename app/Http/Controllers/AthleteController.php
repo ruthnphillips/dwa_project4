@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 class AthleteController extends Controller
 {
@@ -12,8 +13,11 @@ class AthleteController extends Controller
         return view('athlete.register');
     }
 
-    public function registerFormSubmit(Request $request)
+
+    //  //Post /store-athlete
+    public function storeAthlete(Request $request)
     {
+
         #Validate the form entries
         $this->validate($request, [
             'first_name'=>'required',
@@ -22,18 +26,23 @@ class AthleteController extends Controller
             'gpa'=>'nullable|numeric|between:0,5'
         ]);
 
-        $athlete = [];
 
-        # by default guests have no pets
-        $gpa = $request->input('gpa');
+        # ToDo: Add code to enter athlete into database
 
-        foreach ($request as $key => $value)
-        {
-            $athlete = array_add($request, $key, $value);
-        }
 
-        return view('athlete.success')->with([
-            'athlete'=>$athlete
+        $first_name = $request->input('first_name');
+
+        #return redirect('/athlete/success);
+        return redirect('/athlete/success')->with([
+            'first_name'=>$first_name
+        ]);
+    }
+
+    // //GET /athlete/success
+    public function success()
+    {
+        return view('athlete.success')-> with([
+            'first_name' => session('first_name')
         ]);
     }
 }
