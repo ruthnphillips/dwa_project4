@@ -1,0 +1,39 @@
+/*
+Author: Ruth P
+*/
+
+body {
+    font-family: Helvetica,Arial,sans-serif;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.error{
+    color: red;
+}
+
+h1, h2, header{
+	text-align: center;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+label{
+    font-size:20px;
+}
+
+li {
+    font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+}

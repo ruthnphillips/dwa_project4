@@ -20,8 +20,8 @@ class CreateAthletesTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->char('gender');
-            $table->string('school');
-            $table->decimal('gpa', 3, 2);
+            $table->string('school')->nullable();
+            $table->decimal('gpa', 3, 2)->nullable();
         });
     }
 
