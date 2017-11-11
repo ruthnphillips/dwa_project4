@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container">
+        <h2> Athlete Registration </h2>
         <form class="form-horizontal" method='POST' action='/store-athlete'>
 
             {{ csrf_field() }}
