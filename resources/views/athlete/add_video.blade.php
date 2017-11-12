@@ -49,14 +49,14 @@
 
             <!-- radio button to select if video is to be submitted for voting -->
             <div class='form-group required'>
-                <label class="control-label col-sm-2" for="Last_name">Submit for Voting?</label>
+                <label class="control-label col-sm-2">Submit for Voting?</label>
                 <div class="col-sm-10">
-                    <label class="radio-inline">
-                        <input type="radio" name="submitted" value="1" @if(old('submitted')) checked @endif>
+                    <label class="radio-inline" for="no">
+                        <input type="radio" name="submitted" id = "no" value="1" @if(old('submitted')) checked @endif>
                          No
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="submitted" value="0" @if(!old('submitted')) checked @endif>
+                    <label class="radio-inline" for="yes">
+                        <input type="radio" name="submitted" id = "yes" value="0" @if(!old('submitted')) checked @endif>
                         Yes
                     </label>
                 </div>
