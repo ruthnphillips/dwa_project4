@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="match_date">Match Date</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="match_date" name='match_date'
+                    <input type="text" class="form-control" id="match_date" name='match_date'
                         placeholder="dd/mm/yyyy" value='{{old('match_date')}}'>
                     @include('modules.error-field', ['fieldName' => 'match_date'])
                 </div>
