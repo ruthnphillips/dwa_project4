@@ -7,10 +7,10 @@ use Session;
 
 class AthleteController extends Controller
 {
-    //    //GET /athlete-register-form
-    public function registerForm()
+    //    //GET /add-athlete
+    public function addAthlete()
     {
-        return view('athlete.register');
+        return view('athlete.add_athlete');
     }
 
 
@@ -43,6 +43,66 @@ class AthleteController extends Controller
     {
         return view('athlete.success')-> with([
             'first_name' => session('first_name')
+        ]);
+    }
+
+    //    //GET /add-video
+    public function addVideo()
+    {
+        return view('athlete.add_video');
+    }
+
+    //  //Post /store-video
+    public function storeVideo(Request $request)
+    {
+
+        #Validate the form entries
+        $this->validate($request, [
+            'video_link'=>'required|url',
+            'sport'=>'required',
+            'position'=>'required',
+            'submitted'=>'required',
+            'email'=>'required|email'
+        ]);
+
+
+        # ToDo: Add code to enter video into database
+
+
+        $email = $request->input('email');
+
+        #return redirect('/athlete/success);
+        return redirect('/athlete/success')->with([
+            'first_name'=>$email
+        ]);
+    }
+
+    //    //GET /add-stats
+    public function addStats()
+    {
+        return view('athlete.add_stats');
+    }
+
+    //  //Post /store-stats
+    public function storeStats(Request $request)
+    {
+
+        #Validate the form entries
+        $this->validate($request, [
+            'description'=>'required',
+            'value'=>'required|numeric',
+            'email'=>'required|email'
+        ]);
+
+
+        # ToDo: Add code to enter video into database
+
+
+        $email = $request->input('email');
+
+        #return redirect('/athlete/success);
+        return redirect('/athlete/success')->with([
+            'first_name'=>$email
         ]);
     }
 }

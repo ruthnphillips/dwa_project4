@@ -16,12 +16,10 @@
 
 </head>
 <body>
+    @include('layouts.navbar') {{-- Include nav bar file --}}
 
     <header>
-        <a href='/'><img
-            src="{{ asset('img/logo2.png') }}"
-            style='width:200px'
-            alt='Scouted Logo'></a>
+
     </header>
 
     <section id='main'>

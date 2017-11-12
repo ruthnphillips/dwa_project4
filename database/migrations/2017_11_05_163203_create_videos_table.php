@@ -23,7 +23,6 @@ class CreateVideosTable extends Migration
             $table->boolean('submitted')->comment('if video is submitted for voting');
             $table->string('video_link');
             $table->string('voting_link')->nullable()->comment('url to vote for this video');
-
         });
     }
 

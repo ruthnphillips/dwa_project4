@@ -9,6 +9,6 @@
 @section('content')
     <div class="container">
         <!-- display result -->
-        <h2>{{$first_name}}, your registration was successful</h2>
+        <h2>{{$first_name}}, you were successful!</h2>
     </div>
 @endsection

@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Scouted
+    Scouted - register
 @endsection
 
 
@@ -13,12 +13,14 @@
 
             {{ csrf_field() }}
 
+            <div class='details'>* Required fields</div>
+
             <!-- input to enter first name -->
             <div class="form-group required">
                 <label class="control-label col-sm-2" for="first_name">First Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="first_name" name='first_name'
-                        placeholder="(required)" required="required" value='{{old('first_name')}}'>
+                        required="required" value='{{old('first_name')}}'>
                     @include('modules.error-field', ['fieldName' => 'first_name'])
                 </div>
             </div>
@@ -28,7 +30,7 @@
                 <label class="control-label col-sm-2" for="last_name">Last Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="last_name" name='last_name'
-                        placeholder="(required)" required="required" value='{{old('last_name')}}'>
+                        required="required" value='{{old('last_name')}}'>
                     @include('modules.error-field', ['fieldName' => 'last_name'])
                 </div>
             </div>
@@ -38,13 +40,13 @@
                 <label class="control-label col-sm-2" for="email">email</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="email" name='email'
-                        placeholder="(required)" required="required" value='{{old('email')}}'>
+                        required="required" value='{{old('email')}}'>
                     @include('modules.error-field', ['fieldName' => 'email'])
                 </div>
             </div>
 
             <!-- radio button to choose gender (Male/Female) -->
-            <div class='form-group'>
+            <div class='form-group required'>
                 <label class="control-label col-sm-2" for="Last_name">Gender</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">
