@@ -47,14 +47,14 @@
 
             <!-- radio button to choose gender (Male/Female) -->
             <div class='form-group required'>
-                <label class="control-label col-sm-2" for="gender">Gender</label>
+                <label class="control-label col-sm-2">Gender</label>
                 <div class="col-sm-10">
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" value="1" @if(old('gender')) checked @endif>
+                    <label class="radio-inline" for="male">
+                        <input type="radio" name="gender" id="male" value="1" @if(old('gender')) checked @endif>
                          Male
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" value="0" @if(!old('gender')) checked @endif>
+                    <label class="radio-inline" for="female">
+                        <input type="radio" name="gender" id="male" value="0" @if(!old('gender')) checked @endif>
                         Female
                     </label>
                 </div>
@@ -62,7 +62,7 @@
 
             <!-- input to enter School -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="school">School</label>
+                <label class="control-label col-sm-2" for="school_name">School</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="school_name" name='school_name'
                         value='{{old('school_name')}}'>
