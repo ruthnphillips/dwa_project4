@@ -54,7 +54,7 @@
                          Male
                     </label>
                     <label class="radio-inline" for="female">
-                        <input type="radio" name="gender" id="male" value="0" @if(!old('gender')) checked @endif>
+                        <input type="radio" name="gender" id="female" value="0" @if(!old('gender')) checked @endif>
                         Female
                     </label>
                 </div>
