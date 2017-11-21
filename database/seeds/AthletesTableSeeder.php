@@ -13,10 +13,10 @@ class AthletesTableSeeder extends Seeder
     public function run()
     {
         $athletes = [
-            ['John', 'Doe', 'johndoe@m.com', 'Male', 'McKinney High Mckinney TX', 3.53],
-            ['Mary', 'Doe', 'marydoe@m.com', 'Female', 'McKinney High Mckinney TX', 2.50],
-            ['Michael', 'Smith', 'michaelsmith@m.com', 'Male', 'Ascencion Middle Scotts TX', 4.00],
-            ['Johnson', 'Doe', 'johnsondoe@m.com', 'Male', 'Plano Middle Plano TX', 3.55],
+            ['John Doe', 'johndoe@m.com', 'Male', 'McKinney High Mckinney TX', 3.53],
+            ['Mary Doe', 'marydoe@m.com', 'Female', 'McKinney High Mckinney TX', 2.50],
+            ['Michael Smith', 'michaelsmith@m.com', 'Male', 'Ascencion Middle Scotts TX', 4.00],
+            ['Johnson Doe', 'johnsondoe@m.com', 'Male', 'Plano Middle Plano TX', 3.55],
         ];
 
         $count = count($athletes);
@@ -25,12 +25,11 @@ class AthletesTableSeeder extends Seeder
             Athlete::insert([
                 'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-                'first_name' => $athlete[0],
-                'last_name' => $athlete[1],
-                'email' => $athlete[2],
-                'gender' => $athlete[3],
-                'school' => $athlete[4],
-                'gpa' => $athlete[5]
+                'name' => $athlete[0],
+                'email' => $athlete[1],
+                'gender' => $athlete[2],
+                'school' => $athlete[3],
+                'gpa' => $athlete[4]
             ]);
             $count--;
         }

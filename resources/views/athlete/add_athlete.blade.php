@@ -8,30 +8,20 @@
 
 @section('content')
     <div class="container">
-        <h2> Athlete Registration </h2>
         <form class="form-horizontal" method='POST' action='/store-athlete'>
+            <h2 class="text-center"> Athlete Registration </h2>
 
             {{ csrf_field() }}
 
             <div class='details'>* Required fields</div>
 
-            <!-- input to enter first name -->
+            <!-- input to enter name -->
             <div class="form-group required">
-                <label class="control-label col-sm-2" for="first_name">First Name</label>
+                <label class="control-label col-sm-2" for="name">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="first_name" name='first_name'
-                        required="required" value='{{old('first_name')}}'>
-                    @include('modules.error-field', ['fieldName' => 'first_name'])
-                </div>
-            </div>
-
-            <!-- input to enter last name -->
-            <div class="form-group required">
-                <label class="control-label col-sm-2" for="last_name">Last Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="last_name" name='last_name'
-                        required="required" value='{{old('last_name')}}'>
-                    @include('modules.error-field', ['fieldName' => 'last_name'])
+                    <input type="text" class="form-control" id="name" name='name'
+                        required="required" value='{{old('name')}}'>
+                    @include('modules.error-field', ['fieldName' => 'name'])
                 </div>
             </div>
 
@@ -50,11 +40,11 @@
                 <label class="control-label col-sm-2">Gender</label>
                 <div class="col-sm-10">
                     <label class="radio-inline" for="male">
-                        <input type="radio" name="gender" id="male" value="1" @if(old('gender')) checked @endif>
+                        <input type="radio" name="gender" id="male" value="male" @if(old('gender')) checked @endif>
                          Male
                     </label>
                     <label class="radio-inline" for="female">
-                        <input type="radio" name="gender" id="female" value="0" @if(!old('gender')) checked @endif>
+                        <input type="radio" name="gender" id="female" value="female" @if(!old('gender')) checked @endif>
                         Female
                     </label>
                 </div>
@@ -62,11 +52,11 @@
 
             <!-- input to enter School -->
             <div class="form-group">
-                <label class="control-label col-sm-2" for="school_name">School</label>
+                <label class="control-label col-sm-2" for="school">School</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="school_name" name='school_name'
-                        value='{{old('school_name')}}'>
-                    @include('modules.error-field', ['fieldName' => 'school_name'])
+                    <input type="text" class="form-control" id="school" name='school'
+                        value='{{old('school')}}'>
+                    @include('modules.error-field', ['fieldName' => 'school'])
                 </div>
             </div>
                 <!-- input to enter GPA -->

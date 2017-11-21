@@ -12,15 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    #return view('welcome');
+    return view('athlete.showsocial');
 });
 
 Route::get('/add-athlete', 'AthleteController@addAthlete');
 Route::post('/store-athlete', 'AthleteController@storeAthlete');
 Route::get('/athlete/success', 'AthleteController@success');
 
-Route::get('/add-video', 'AthleteController@addVideo');
-Route::post('/store-video', 'AthleteController@storeVideo');
+Route::get('/add-video/{id}', 'AthleteController@addVideo');
+Route::post('/store-video/{id}', 'AthleteController@storeVideo');
 
 Route::get('/add-stats', 'AthleteController@addStats');
 Route::post('/store-stats', 'AthleteController@storeStats');

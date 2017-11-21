@@ -18,21 +18,21 @@
 
                         <!-- input to enter stat description link -->
             <div class="form-group required">
-                <label class="control-label col-sm-2" for="description">Description</label>
+                <label class="control-label col-sm-2" for="score_description">Description</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="description" name='description'
-                        placeholder="touchdown..." required="required" value='{{old('description')}}'>
-                    @include('modules.error-field', ['fieldName' => 'description'])
+                    <input type="text" class="form-control" id="score_description" name='score_description'
+                        placeholder="touchdown..." required="required" value='{{old('score_description')}}'>
+                    @include('modules.error-field', ['fieldName' => 'score_description'])
                 </div>
             </div>
 
             <!-- input to enter value -->
             <div class="form-group required">
-                <label class="control-label col-sm-2" for="value">Value</label>
+                <label class="control-label col-sm-2" for="score">Value</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="value" name='value'
-                        placeholder="5..." required="required" value='{{old('value')}}'>
-                    @include('modules.error-field', ['fieldName' => 'value'])
+                    <input type="text" class="form-control" id="score" name='score'
+                        placeholder="5..." required="required" value='{{old('score')}}'>
+                    @include('modules.error-field', ['fieldName' => 'score'])
                 </div>
             </div>
 

@@ -13,12 +13,12 @@ class VideosTableSeeder extends Seeder
     public function run()
     {
         $videos = [
-            [1, 'Baseball', 'Pitcher', 1, 'https://www.youtube.com/watch?v=U9QSWhELDnI', 'http://www.p4.ruthp.me/vote'],
-            [1, 'Baseball', 'Pitcher', 0, 'https://www.youtube.com/watch?v=l-bpLtYRJmw', 'http://www.p4.ruthp.me/vote'],
-            [2, 'Basketball', 'Pointguard', 1, 'https://www.youtube.com/watch?v=KgVFeCxrt3w', 'http://www.p4.ruthp.me/vote'],
-            [3, 'Football', 'Quarterback', 1, 'https://www.youtube.com/watch?v=MB1TnJz-Zwk', 'http://www.p4.ruthp.me/vote'],
-            [4, 'Football', 'Runningback', 0, 'https://www.youtube.com/watch?v=E6toRB-yDK0', 'http://www.p4.ruthp.me/vote'],
-            [4, 'Baseball', 'Pitcher', 1, 'https://www.youtube.com/watch?v=Dd04kTm7KgM', 'http://www.p4.ruthp.me/vote'],
+            [1, 'Baseball', 'Pitcher', 1, 'https://www.youtube.com/embed/U9QSWhELDnI', 'http://www.p4.ruthp.me/vote', 1, 20],
+            [1, 'Baseball', 'Pitcher', 0, 'https://www.youtube.com/embed/l-bpLtYRJmw', 'http://www.p4.ruthp.me/vote', 2, 15],
+            [2, 'Basketball', 'Pointguard', 1, 'https://www.youtube.com/embed/KgVFeCxrt3w', 'http://www.p4.ruthp.me/vote', 1, 24],
+            [3, 'Football', 'Quarterback', 1, 'https://www.youtube.com/embed/MB1TnJz-Zwk', 'http://www.p4.ruthp.me/vote', 1, 3],
+            [4, 'Football', 'Runningback', 0, 'https://www.youtube.com/embed/E6toRB-yDK0', 'http://www.p4.ruthp.me/vote', 1, 1],
+            [4, 'Baseball', 'Pitcher', 1, 'https://www.youtube.com/embed/Dd04kTm7KgM', 'http://www.p4.ruthp.me/vote', 3, 4],
 
         ];
 
@@ -33,7 +33,9 @@ class VideosTableSeeder extends Seeder
                 'position' => $video[2],
                 'submitted' => $video[3],
                 'video_link' => $video[4],
-                'voting_link' => $video[5]
+                'voting_link' => $video[5],
+                'rank' => $video[6],
+                'votes' => $video[7]
             ]);
             $count--;
         }

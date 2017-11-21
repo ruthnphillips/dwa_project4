@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.athletesocial')
 
 
 @section('title')
@@ -7,8 +7,15 @@
 
 
 @section('content')
-    <div class="container">
-        <!-- display result -->
-        <h2>{{$first_name}}, you were successful!</h2>
+    <div class="container text-center">
+        <div class="row">
+            @include('layouts.leftbar', ['athlete' => $athlete]) {{-- Include left bar file --}}
+
+            <div class="col-sm-7">
+                {{-- display result --}}
+                @include('layouts.status_bar', ['msg' => $athlete])
+                <p> {{$athlete}} </p>
+            </div>
+        </div>
     </div>
 @endsection

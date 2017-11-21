@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
         <h2> Add Video </h2>
-        <form class="form-horizontal" method='POST' action='/store-video'>
+        <form class="form-horizontal" method='POST' action='/store-video/{{$athlete->id}}'>
 
             {{ csrf_field() }}
 
@@ -59,16 +59,6 @@
                         <input type="radio" name="submitted" id = "yes" value="0" @if(!old('submitted')) checked @endif>
                         Yes
                     </label>
-                </div>
-            </div>
-
-            <!-- input to enter email address -->
-            <div class="form-group required">
-                <label class="control-label col-sm-2" for="email">email</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="email" name='email'
-                        required="required" value='{{old('email')}}'>
-                    @include('modules.error-field', ['fieldName' => 'email'])
                 </div>
             </div>
 

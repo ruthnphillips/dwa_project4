@@ -27,9 +27,26 @@ body {
     /* sticky footer - match footer height */
     margin-bottom: 30px;
 }
+
 header {
     text-align:center;
     margin-top:20px;
+}
+
+.well{
+    text-align:left!important;
+}
+
+.alert {
+    background-color:yellow!important;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:5px;
+    font-weight:bold;
+    text-align:center;
+    cursor:pointer;
 }
 
 footer {
@@ -44,11 +61,12 @@ footer {
     line-height:30px; /* Vertically center the text there */
 }
 
+
 /*----------------------------------------------------
 Typography
 -----------------------------------------------------*/
 
-h1, h2, header{
+h1,h2,h3,h4,h5,h6,header{
 	text-align: center;
 }
 
@@ -78,6 +96,11 @@ ul {
 /*----------------------------------------------------
 Forms https://www.sanwebe.com/2014/08/css-html-forms-designs
 -----------------------------------------------------*/
+form {
+    width: 700px;
+    margin: 0 auto;
+}
+
 .error{
     color: red;
 }
@@ -110,12 +133,17 @@ select
     -moz-box-sizing: border-box;
     outline: none;
     display: block;
-    width: 50%!important;
+    width: 100%!important;
     padding: 7px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
     font: 18px Arial, Helvetica, sans-serif;
-    height: 35px;
+    height: 40px;
 }
+
+select{
+    font-size: 18px!important;
+}
+
 textarea{
     resize:none;
     overflow: hidden;
