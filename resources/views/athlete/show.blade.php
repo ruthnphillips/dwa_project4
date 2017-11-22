@@ -10,18 +10,12 @@
     <div class="container">
         <div class="row">
             {{-- Include left bar file --}}
-            @include('layouts.leftbar', [
-                'athlete' => $athlete
-            ])
+            @include('layouts.leftbar', ['athlete' => $athlete])
 
             <div class="col-sm-7">
                 {{-- display result --}}
-                @include('layouts.status_bar', [
-                    'athlete' => $athlete
-                ])
-                @include('layouts.post', [
-                    'videos' =>$videos
-                ])
+                @include('layouts.status_bar', ['athlete' => $athlete])
+                @include('layouts.post', ['videos' =>$videos])
             </div>
         </div>
     </div>
