@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
 
-        <form class="form-horizontal" method='POST' action='/store-stats'>
+        <form class="form-horizontal" method='POST' action='/store-stats/{{$id}}'>
             <h2> Add Stats </h2>
 
             {{ csrf_field() }}
@@ -33,16 +33,6 @@
                     <input type="text" class="form-control" id="score" name='score'
                         placeholder="5..." required="required" value='{{old('score')}}'>
                     @include('modules.error-field', ['fieldName' => 'score'])
-                </div>
-            </div>
-
-            <!-- input to enter email address -->
-            <div class="form-group required">
-                <label class="control-label col-sm-2" for="email">email</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="email" name='email'
-                        required="required" value='{{old('email')}}'>
-                    @include('modules.error-field', ['fieldName' => 'email'])
                 </div>
             </div>
 

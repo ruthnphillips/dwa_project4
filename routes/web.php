@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    #return view('welcome');
-    return view('athlete.showsocial');
-});
+Route::get('/', 'AthleteController@index');
 
 Route::get('/add-athlete', 'AthleteController@addAthlete');
 Route::post('/store-athlete', 'AthleteController@storeAthlete');
@@ -23,8 +20,14 @@ Route::get('/athlete/success', 'AthleteController@success');
 Route::get('/add-video/{id}', 'AthleteController@addVideo');
 Route::post('/store-video/{id}', 'AthleteController@storeVideo');
 
-Route::get('/add-stats', 'AthleteController@addStats');
-Route::post('/store-stats', 'AthleteController@storeStats');
+Route::get('/edit-video/{id}', 'AthleteController@editVideo');
+Route::put('/update-video/{id}', 'AthleteController@updateVideo');
+Route::get('/delete-video/{id}', 'AthleteController@deleteVideo');
+
+Route::get('/add-stats/{id}', 'AthleteController@addStats');
+Route::post('/store-stats/{id}', 'AthleteController@storeStats');
+
+Route::get('/add-vote/{id}', 'AthleteController@addVote');
 
 Route::get('/debug', function () {
 

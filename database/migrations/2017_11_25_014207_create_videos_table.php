@@ -18,7 +18,8 @@ class CreateVideosTable extends Migration
             $table->timestamps();
             $table->integer('athletes_id')->unsigned();
             $table->foreign('athletes_id')->references('id')->on('athletes');
-            $table->string('sport')->comment('example, football, basketball');
+            $table->integer('sports_id')->unsigned();
+            $table->foreign('sports_id')->references('id')->on('sports');
             $table->string('position')->comment('example, quaterback, pointguard');
             $table->boolean('submitted')->comment('if video is submitted for voting');
             $table->string('video_link');

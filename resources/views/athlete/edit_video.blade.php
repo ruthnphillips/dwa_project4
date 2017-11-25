@@ -2,14 +2,15 @@
 
 
 @section('title')
-    Scouted - Add Video
+    Scouted - Edit Video
 @endsection
 
 
 @section('content')
     <div class="container">
         <h2> Add Video </h2>
-        <form class="form-horizontal" method='POST' action='/store-video/{{$athlete->id}}'>
+        <form class="form-horizontal" method='POST' action='/update-video/{{$video->id}}'>
+            {{ method_field('put') }}
 
             {{ csrf_field() }}
 
@@ -20,7 +21,7 @@
                 <label class="control-label col-sm-2" for="video_link">Video Link</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="video_link" name='video_link'
-                        required="required" value='{{old('video_link')}}'>
+                        required="required" value='{{old('video_link', $video->video_link)}}'>
                     @include('modules.error-field', ['fieldName' => 'video_link'])
                 </div>
             </div>
@@ -31,7 +32,7 @@
                 <div class="col-sm-10">
                     <select class="form-control" id="sport" name="sport">
                         @foreach($sportstype as $type)
-                            <option value="{{ $type['id'] }}" {{ (old('sport', $sport ?? '') == $type['id']) ?
+                            <option value="{{ $type['id'] }}" {{ (old('sport', $type['id'] ?? '') == $type['id']) ?
                                 'selected' : '' }}>{{ $type['name'] }}</option>
                         @endforeach
                     </select>
@@ -43,7 +44,7 @@
                 <label class="control-label col-sm-2" for="position">Position</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="position" name='position'
-                        placeholder="example: quarterback" required="required" value='{{old('position')}}'>
+                        placeholder="example: quarterback" required="required" value='{{old('position', $video->position)}}'>
                     @include('modules.error-field', ['fieldName' => 'position'])
                 </div>
             </div>
@@ -63,10 +64,10 @@
                 </div>
             </div>
 
-            <!-- submit button -->
+            <!-- update button -->
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                  <input type='submit' class='btn btn-primary btn-small' value='Add Video'>
+                  <input type='submit' class='btn btn-primary btn-small' value='Update Video'>
               </div>
             </div>
 	    </form>

@@ -1,15 +1,15 @@
 <div class="col-sm-2 well">
   <div class="thumbnail">
-    <p>Upcoming Events:</p>
-    <img src="paris.jpg" alt="Paris" width="400" height="300">
-    <p><strong>Paris</strong></p>
-    <p>Fri. 27 November 2015</p>
-    <button class="btn btn-primary">Info</button>
+    <h4>New Videos</h4>
+    {{--<img src="paris.jpg" alt="Paris" width="400" height="300">--}}
+    <p>{{ date("Y-m-d") }}</p>
   </div>
-  <div class="well">
-    <p>ADS</p>
-  </div>
-  <div class="well">
-    <p>ADS</p>
-  </div>
+  {{--@foreach($videos as $video)--}}
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+  {{--endforeach--}}
 </div>

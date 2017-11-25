@@ -1,0 +1,12 @@
+<div class="col-sm-2 well">
+  <div class="thumbnail">
+    <h5>recently added..</h5>
+  </div>
+  @foreach($videos as $video)
+    <div class="well">
+        <iframe width="120" height="50" src="{{ $video['video_link'] }}" frameborder="0"
+            allowfullscreen></iframe>
+        <p> added:{{$video['created_at']}}
+    </div>
+  @endforeach
+</div>

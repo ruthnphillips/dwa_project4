@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Athlete;
+use App\Sport;
 use App\Stat;
 use App\Video;
 use App\VideoRanking;
@@ -12,7 +13,23 @@ use Session;
 
 class AthleteController extends Controller
 {
-    //    //GET /add-athlete
+    //    /
+    public function index()
+    {
+        // get the 4 most recent videos added
+        $videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
+
+        //sort video by Ranking
+        $count = Sport::all()->count();
+        $rankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get();
+
+        return view('athlete.index')->with([
+            'videos'=>$videos,
+            'rankings'=>$rankings
+        ]);
+    }
+
+        //    //GET /add-athlete
     public function addAthlete()
     {
         return view('athlete.add_athlete');
@@ -39,11 +56,18 @@ class AthleteController extends Controller
         $athlete->gpa = $request->input('gpa');
         $athlete->save();
 
-        $newEntry = Athlete::where('email', '=', $athlete->email)->first();
-    #    return redirect('/athlete/success')->with([
-    #            'athlete'=>$newAthlete
-    #        ]);
-        return view('athlete.show')->with(['athlete'=> $newEntry]);
+        $newAthlete = Athlete::where('email', '=', $athlete->email)->first();
+        $videos = Video::where('athletes_id', '=', $newAthlete->id);
+        $stats = Stat::where('athletes_id', '=', $newAthlete->id)->get();
+
+
+        return view('athlete.show')->with([
+            'athlete'=>$newAthlete,
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
+        ]);
     }
 
     // //GET /athlete/success
@@ -58,7 +82,11 @@ class AthleteController extends Controller
     public function addVideo($id)
     {
         $athlete = Athlete::find($id);
-        return view('athlete.add_video')->with(['athlete'=>$athlete]);
+        $sports = Sport::all();
+        return view('athlete.add_video')->with([
+            'athlete'=>$athlete,
+            'sportstype'=>$sports
+        ]);
     }
 
     //  //Post /store-video/{$id}
@@ -67,7 +95,7 @@ class AthleteController extends Controller
 
         #Validate the form entries
         $this->validate($request, [
-            'video_link'=>'required',
+            'video_link'=>'required|url',
             'sport'=>'required',
             'position'=>'required',
             'submitted'=>'required'
@@ -76,7 +104,7 @@ class AthleteController extends Controller
         # Add new video to the database
         $video = new Video();
         $video->athletes_id = $id;
-        $video->sport = $request->input('sport');
+        $video->sports_id = $request->input('sport');
         $video->position = $request->input('position');
         $video->submitted = $request->input('submitted');
         $video->video_link = $request->input('video_link');
@@ -85,46 +113,139 @@ class AthleteController extends Controller
 
         $athlete = Athlete::find($id);
         $videos = Video::where('athletes_id', '=', $id)->get();
+        $stats = Stat::where('athletes_id', '=', $id)->get();
 
         return view('athlete.show')->with([
             'athlete'=>$athlete,
-            'videos'=>$videos
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
         ]);
     }
 
-    //    //GET /add-stats
-    public function addStats()
+    //  //Get /edit-video/{$id}
+    public function editVideo($id)
     {
-        return view('athlete.add_stats');
+        $video = Video::find($id);
+        $sports = Sport::all();
+        return view('athlete.edit_video')->with([
+            'video'=>$video,
+            'sportstype'=>$sports
+        ]);
     }
 
-    //  //Post /store-stats
-    public function storeStats(Request $request)
+    //  //Post /update-video/{$id}
+    public function updateVideo(Request $request, $id)
+    {
+
+        #Validate the form entries
+        $this->validate($request, [
+            'video_link'=>'required|url',
+            'sport'=>'required',
+            'position'=>'required',
+            'submitted'=>'required'
+        ]);
+
+        # update video info in the database
+        $video = Video::find($id);
+        $video->sports_id = $request->input('sport');
+        $video->position = $request->input('position');
+        $video->submitted = $request->input('submitted');
+        $video->video_link = $request->input('video_link');
+        $video->voting_link = $request->input('voting_link');
+        $video->save();
+
+        $athlete = Athlete::find($video->athletes_id);
+        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
+        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
+
+        return view('athlete.show')->with([
+            'athlete'=>$athlete,
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
+        ]);
+    }
+
+    //  //Get /delete-video/{$id}
+    public function deleteVideo($id)
+    {
+        $video = Video::find($id);
+        $athlete = Athlete::find($video->athletes_id);
+        //$result = Video::find($id)->delete();
+        $result = Video::destroy($id);
+        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
+        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
+
+        return view('athlete.show')->with([
+            'athlete'=>$athlete,
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
+        ]);
+    }
+
+    //    //GET /add-stats/{id}
+    public function addStats($id)
+    {
+        return view('athlete.add_stats')->with(['id' => $id]);
+    }
+
+    //  //Post /store-stats/{id}
+    public function storeStats(Request $request, $id)
     {
 
         #Validate the form entries
         $this->validate($request, [
             'score_description'=>'required',
             'score'=>'required|numeric',
-            'email'=>'required|email|exists:athletes,email',
             'match_date'=>'nullable|date_format:d/m/Y'
         ]);
 
-
-        # Query DB to retrieve athlete ID if exists
-        $athlete_id = Athlete::where('email', '=', $request->input('email'))->value('id');
-
         # Add new stats to the database
         $stat = new Stat();
-        $stat->athletes_id = $athlete_id;
+        $stat->athletes_id = $id;
         $stat->match_name = $request->input('match_name');
         $stat->match_date = Carbon::parse($request->input('match_date'));
         $stat->score_description = $request->input('score_description');
         $stat->score = $request->input('score');
         $stat->save();
 
-        return redirect('/athlete/success')->with([
-            'first_name'=>'successfully added stats'
+        $athlete = Athlete::find($id);
+        $videos = Video::where('athletes_id', '=', $id)->get();
+        $stats = Stat::where('athletes_id', '=', $id)->get();
+
+
+        return view('athlete.show')->with([
+            'athlete'=>$athlete,
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
+        ]);
+    }
+
+    //  //Post /add_vote/{$video_id}
+    public function addVote($video_id)
+    {
+        # find corresponding video entry in videos table and increment vote by 1
+        $video = Video::find($video_id);
+        $video->votes += 1;
+        $video->save();
+
+        $athlete = Athlete::find($video->athletes_id);
+        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
+        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
+
+        return view('athlete.show')->with([
+            'athlete'=>$athlete,
+            'videos'=>$videos,
+            'count' =>$videos->count(),
+            'stats' =>$stats
+
         ]);
     }
 }
