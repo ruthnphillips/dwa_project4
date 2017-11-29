@@ -9,6 +9,7 @@
 
         @if($video['submitted'])
             <a href='/add-vote/{{$video['id'] }}'><span class="label label-default">Vote</span></a>
+            {{--<a href='/send-vote-link/{{$video['id'] }}'><span class="label label-default">Send Voting Link</span></a>--}}
         @else
             <span class="label label-primary">No voting allowed</span></a>
         @endif

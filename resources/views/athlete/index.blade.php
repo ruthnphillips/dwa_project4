@@ -15,7 +15,7 @@
             <div class="col-sm-7">
                 {{-- display result --}}
                 {{-- @include('layouts.status_bar', ['athlete' => $athlete]) --}}
-                @include('layouts.main_post', ['rankings' => $rankings])
+                @include('layouts.main_post', ['rankings' => $rankings, 'newrankings' => $newrankings])
             </div>
             @include('layouts.main_rightbar', ['video' => $videos])
         </div>
