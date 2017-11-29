@@ -33,26 +33,17 @@ header {
     margin-top:20px;
 }
 
-.well{
-    text-align:left!important;
+.alert {
+   width:40%;
 }
 
-.alert {
-    background-color:yellow!important;
-    width:100%;
-    position:fixed;
-    top:0;
-    left:0;
-    padding:5px;
-    font-weight:bold;
-    text-align:center;
-    cursor:pointer;
+.well{
+    text-align:left!important;
 }
 
 footer {
     text-align:center;
     background-color:#eee;
-
     /* sticky footer */
     position: absolute;
     bottom: 0;

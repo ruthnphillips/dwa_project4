@@ -5,7 +5,7 @@
     <p>School: {{$athlete->school}}</p>
     <p>Gender: {{$athlete->gender}}</p>
     <p>email:  {{$athlete->email}}</p>
-    <p class="label label-primary">update</p>
+    <a href='/edit-athlete/{{$athlete->id}}'><span class="label label-primary">Update</span></a>
   </div>
   <div class="well">
     <h4>Videos</h4>

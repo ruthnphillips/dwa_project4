@@ -37,7 +37,7 @@ class AthleteController extends Controller
                       a.id) src
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
-$newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get();
+        $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get();
         return view('athlete.main.index')->with([
             'videos'=>$videos,
             'rankings'=>$rankings,
@@ -71,27 +71,51 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
         $athlete->school = $request->input('school');
         $athlete->gpa = $request->input('gpa');
         $athlete->save();
+        return redirect('/show-athlete/'.$athlete->id)->with('alert', 'Welcome '. $athlete->name. '!!');
+    }
 
-        $newAthlete = Athlete::where('email', '=', $athlete->email)->first();
-        $videos = Video::where('athletes_id', '=', $newAthlete->id);
-        $stats = Stat::where('athletes_id', '=', $newAthlete->id)->get();
-
+    // //GET /show
+    public function showAthlete($id)
+    {
+        $athlete = Athlete::find($id);
+        $videos = Video::where('athletes_id', '=', $id)->get();
+        $stats = Stat::where('athletes_id', '=', $id)->get();
 
         return view('athlete.user.show')->with([
-            'athlete'=>$newAthlete,
+            'athlete'=>$athlete,
             'videos'=>$videos,
             'count' =>$videos->count(),
             'stats' =>$stats
 
         ]);
     }
-
-    // //GET /athlete/success
-    public function success()
+    //    //GET /edit-athlete
+    public function editAthlete($id)
     {
-        return view('athlete.success')-> with([
-            'athlete' => session('athlete')
+        $athlete = Athlete::find($id);
+        return view('athlete.user.edit_athlete')->with(['athlete'=>$athlete]);
+    }
+
+    //  //Post /update-athlete
+    public function updateAthlete(Request $request, $id)
+    {
+
+        #Validate the form entries
+        $this->validate($request, [
+            'name'=>'required',
+            'email'=>'required|email',
+            'gpa'=>'nullable|numeric|between:0,5'
         ]);
+
+        # Add new athlete to the database
+        $athlete = Athlete::find($id);
+        $athlete->name = $request->input('name');
+        $athlete->email = $request->input('email');
+        $athlete->gender = $request->input('gender');
+        $athlete->school = $request->input('school');
+        $athlete->gpa = $request->input('gpa');
+        $athlete->save();
+        return redirect('/show-athlete/'.$id)->with('alert', 'Profile updated!!');
     }
 
     //    //GET /add-video/{$id}
@@ -126,17 +150,7 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
         $video->video_link = $request->input('video_link');
         $video->voting_link = $request->input('voting_link');
         $video->save();
-        $athlete = Athlete::find($id);
-        $videos = Video::where('athletes_id', '=', $id)->get();
-        $stats = Stat::where('athletes_id', '=', $id)->get();
-
-        return view('athlete.user.show')->with([
-            'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
-        ]);
+        return redirect('/show-athlete/'.$id)->with('alert', 'Your video was successfully added!!');
     }
 
     //  //Get /edit-video/{$id}
@@ -171,17 +185,8 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
         $video->voting_link = $request->input('voting_link');
         $video->save();
 
-        $athlete = Athlete::find($video->athletes_id);
-        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
-        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
+        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Your video was updated!!');
 
-        return view('athlete.user.show')->with([
-            'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
-        ]);
     }
 
     //  //Get /delete-video/{$id}
@@ -206,16 +211,7 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
 
-        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
-        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
-
-        return view('athlete.user.show')->with([
-            'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
-        ]);
+        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Your video was deleted!!');
     }
 
     //    //GET /add-stats/{id}
@@ -244,18 +240,8 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
         $stat->score = $request->input('score');
         $stat->save();
 
-        $athlete = Athlete::find($id);
-        $videos = Video::where('athletes_id', '=', $id)->get();
-        $stats = Stat::where('athletes_id', '=', $id)->get();
+        return redirect('/show-athlete/'.$id)->with('alert', 'Your stats have been updated!!');
 
-
-        return view('athlete.user.show')->with([
-            'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
-        ]);
     }
 
     //  //Post /add_vote/{$video_id}
@@ -280,17 +266,7 @@ $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get(
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
 
-        $athlete = Athlete::find($video->athletes_id);
-        $videos = Video::where('athletes_id', '=', $athlete->id)->get();
-        $stats = Stat::where('athletes_id', '=', $athlete->id)->get();
-
-        return view('athlete.user.show')->with([
-            'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
-        ]);
+        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Thanks for voting!!');
     }
 
     public function senVoteLink(Request $request, $video_id)

@@ -15,6 +15,9 @@ Route::get('/', 'AthleteController@index');
 
 Route::get('/add-athlete', 'AthleteController@addAthlete');
 Route::post('/store-athlete', 'AthleteController@storeAthlete');
+Route::get('/show-athlete/{id}', 'AthleteController@showAthlete');
+Route::get('/edit-athlete/{id}', 'AthleteController@editAthlete');
+Route::post('/update-athlete/{id}', 'AthleteController@updateAthlete');
 
 Route::get('/add-video/{id}', 'AthleteController@addVideo');
 Route::post('/store-video/{id}', 'AthleteController@storeVideo');
