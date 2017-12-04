@@ -1,5 +1,4 @@
-@extends('layouts.master')
-
+@extends('layouts.athletesocial')
 
 @section('title')
     Scouted - Add Video
@@ -8,8 +7,8 @@
 
 @section('content')
     <div class="container">
-        <h2> Add Video </h2>
         <form class="form-horizontal" method='POST' action='/store-video/{{$athlete->id}}'>
+            <h2 class="text-center"> Add Video </h2>
 
             {{ csrf_field() }}
 

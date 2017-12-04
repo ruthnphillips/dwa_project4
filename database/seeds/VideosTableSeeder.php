@@ -28,8 +28,8 @@ class VideosTableSeeder extends Seeder
             Video::insert([
                 'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-                'athletes_id' => $video[0],
-                'sports_id' => $video[1],
+                'athlete_id' => $video[0],
+                'sport_id' => $video[1],
                 'position' => $video[2],
                 'submitted' => $video[3],
                 'video_link' => $video[4],

@@ -25,8 +25,8 @@ class StatsTableSeeder extends Seeder
             Stat::insert([
                 'created_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
                 'updated_at' => Carbon\Carbon::now()->subDays($count)->toDateTimeString(),
-                'athletes_id' => $stat[0],
-                'videos_id' => $stat[1],
+                'athlete_id' => $stat[0],
+                'video_id' => $stat[1],
                 'match_name' => $stat[2],
                 'match_date' => Carbon\Carbon::createFromDate($stat[3], $stat[4], $stat[5]),
                 'score_description' => $stat[6],

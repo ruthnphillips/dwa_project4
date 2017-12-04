@@ -16,10 +16,10 @@ class CreateStatsTable extends Migration
         Schema::create('stats', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('athletes_id')->unsigned();
-            $table->foreign('athletes_id')->references('id')->on('athletes')->onDelete('cascade');
-            $table->integer('videos_id')->unsigned()->nullable();
-            $table->foreign('videos_id')->references('id')->on('videos')->onDelete('cascade');
+            $table->integer('athlete_id')->unsigned();
+            $table->foreign('athlete_id')->references('id')->on('athletes')->onDelete('cascade');
+            $table->integer('video_id')->unsigned()->nullable();
+            $table->foreign('video_id')->references('id')->on('videos')->onDelete('cascade');
             $table->string('match_name')->nullable()->comment('example Bulls vs Rams');
             $table->date('match_date')->nullable();
             $table->string('score_description')->comment('example touchdowns, assists, rebounds');

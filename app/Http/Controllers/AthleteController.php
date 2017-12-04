@@ -21,23 +21,23 @@ class AthleteController extends Controller
 
         //sort video by Ranking
         $count = Sport::all()->count();
-        $rankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get();
+        $rankings = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
 
         $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id,
                         count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sports_id=b.sports_id and a.votes<b.votes
+                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
                 group by a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id) src
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
-        $newrankings = Video::orderBy('rank')->orderBy('sports_id')->limit($count)->get();
+        $newrankings = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
         return view('athlete.main.index')->with([
             'videos'=>$videos,
             'rankings'=>$rankings,
@@ -78,8 +78,8 @@ class AthleteController extends Controller
     public function showAthlete($id)
     {
         $athlete = Athlete::find($id);
-        $videos = Video::where('athletes_id', '=', $id)->get();
-        $stats = Stat::where('athletes_id', '=', $id)->get();
+        $videos = Video::where('athlete_id', '=', $id)->get();
+        $stats = Stat::where('athlete_id', '=', $id)->get();
 
         return view('athlete.user.show')->with([
             'athlete'=>$athlete,
@@ -143,8 +143,8 @@ class AthleteController extends Controller
 
         # Add new video to the database
         $video = new Video();
-        $video->athletes_id = $id;
-        $video->sports_id = $request->input('sport');
+        $video->athlete_id = $id;
+        $video->sport_id = $request->input('sport');
         $video->position = $request->input('position');
         $video->submitted = $request->input('submitted');
         $video->video_link = $request->input('video_link');
@@ -178,14 +178,14 @@ class AthleteController extends Controller
 
         # update video info in the database
         $video = Video::find($id);
-        $video->sports_id = $request->input('sport');
+        $video->sport_id = $request->input('sport');
         $video->position = $request->input('position');
         $video->submitted = $request->input('submitted');
         $video->video_link = $request->input('video_link');
         $video->voting_link = $request->input('voting_link');
         $video->save();
 
-        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Your video was updated!!');
+        return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was updated!!');
 
     }
 
@@ -193,25 +193,25 @@ class AthleteController extends Controller
     public function deleteVideo($id)
     {
         $video = Video::find($id);
-        $athlete = Athlete::find($video->athletes_id);
+        $athlete = Athlete::find($video->athlete_id);
         $result = Video::destroy($id);
 
         $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id,
                         count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sports_id=b.sports_id and a.votes<b.votes
+                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
                 group by a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id) src
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
 
-        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Your video was deleted!!');
+        return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was deleted!!');
     }
 
     //    //GET /add-stats/{id}
@@ -233,7 +233,7 @@ class AthleteController extends Controller
 
         # Add new stats to the database
         $stat = new Stat();
-        $stat->athletes_id = $id;
+        $stat->athlete_id = $id;
         $stat->match_name = $request->input('match_name');
         $stat->match_date = Carbon::parse($request->input('match_date'));
         $stat->score_description = $request->input('score_description');
@@ -253,20 +253,20 @@ class AthleteController extends Controller
         $video->save();
         $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id,
                         count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sports_id=b.sports_id and a.votes<b.votes
+                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
                 group by a.video_link,
                       a.votes,
-                      a.sports_id,
+                      a.sport_id,
                       a.position,
                       a.id) src
                 SET dest.rank = src.ranktemp
                 WHERE dest.id = src.id');
 
-        return redirect('/show-athlete/'.$video->athletes_id)->with('alert', 'Thanks for voting!!');
+        return redirect('/show-athlete/'.$video)->with('alert', 'Thanks for voting!!');
     }
 
     public function senVoteLink(Request $request, $video_id)
