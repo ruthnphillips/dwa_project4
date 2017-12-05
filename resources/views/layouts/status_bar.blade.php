@@ -11,11 +11,7 @@
                 <h3>hello, you have {{ $count}} video(s).</h3>
             @endif
         </p>
-        <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-thumbs-up"></span> Like
-        </button>
       </div>
-
     </div>
   </div>
 </div>

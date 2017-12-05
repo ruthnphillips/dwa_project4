@@ -8,6 +8,7 @@ use App\Stat;
 use App\Video;
 use App\VideoRanking;
 use Carbon\Carbon;
+use Mail;
 use Illuminate\Http\Request;
 use Session;
 
@@ -16,32 +17,18 @@ class AthleteController extends Controller
     //    /
     public function index()
     {
-        // get the 4 most recent videos added
-        $videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
 
         //sort video by Ranking
+        Video::rankVideo();
         $count = Sport::all()->count();
-        $rankings = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
+        $videos = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
 
-        $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id,
-                        count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
-                group by a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id) src
-                SET dest.rank = src.ranktemp
-                WHERE dest.id = src.id');
-        $newrankings = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
+        // get the 3 most recent videos added
+        $new_videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
+
         return view('athlete.main.index')->with([
-            'videos'=>$videos,
-            'rankings'=>$rankings,
-            'newrankings'=>$newrankings
+            'new_videos'=>$new_videos,
+            'videos'=>$videos
         ]);
     }
 
@@ -74,7 +61,7 @@ class AthleteController extends Controller
         return redirect('/show-athlete/'.$athlete->id)->with('alert', 'Welcome '. $athlete->name. '!!');
     }
 
-    // //GET /show
+    // //GET /show-athlete/{id}
     public function showAthlete($id)
     {
         $athlete = Athlete::find($id);
@@ -143,13 +130,17 @@ class AthleteController extends Controller
 
         # Add new video to the database
         $video = new Video();
+        $athlete = Athlete::find($id);
         $video->athlete_id = $id;
         $video->sport_id = $request->input('sport');
         $video->position = $request->input('position');
         $video->submitted = $request->input('submitted');
         $video->video_link = $request->input('video_link');
-        $video->voting_link = $request->input('voting_link');
         $video->save();
+
+        //sort video by Ranking
+        Video::rankVideo();
+
         return redirect('/show-athlete/'.$id)->with('alert', 'Your video was successfully added!!');
     }
 
@@ -184,9 +175,9 @@ class AthleteController extends Controller
         $video->video_link = $request->input('video_link');
         $video->voting_link = $request->input('voting_link');
         $video->save();
-
+        //sort video by Ranking
+        Video::rankVideo();
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was updated!!');
-
     }
 
     //  //Get /delete-video/{$id}
@@ -196,20 +187,8 @@ class AthleteController extends Controller
         $athlete = Athlete::find($video->athlete_id);
         $result = Video::destroy($id);
 
-        $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id,
-                        count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
-                group by a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id) src
-                SET dest.rank = src.ranktemp
-                WHERE dest.id = src.id');
+        //sort video by Ranking
+        Video::rankVideo();
 
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was deleted!!');
     }
@@ -241,7 +220,6 @@ class AthleteController extends Controller
         $stat->save();
 
         return redirect('/show-athlete/'.$id)->with('alert', 'Your stats have been updated!!');
-
     }
 
     //  //Post /add_vote/{$video_id}
@@ -251,25 +229,34 @@ class AthleteController extends Controller
         $video = Video::find($video_id);
         $video->votes += 1;
         $video->save();
-        $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id,
-                        count(b.votes)+1 as ranktemp
-                FROM  videos a left join videos b on a.sport_id=b.sport_id and a.votes<b.votes
-                group by a.video_link,
-                      a.votes,
-                      a.sport_id,
-                      a.position,
-                      a.id) src
-                SET dest.rank = src.ranktemp
-                WHERE dest.id = src.id');
-
-        return redirect('/show-athlete/'.$video)->with('alert', 'Thanks for voting!!');
+        //sort video by Ranking
+        Video::rankVideo();
+        return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Thanks for voting!!');
     }
 
-    public function senVoteLink(Request $request, $video_id)
+    public function sendVoteLink($video_id)
     {
+        $video = Video::find($video_id);
+        return view('athlete.user.send_vote_link')->with([
+            'video'=>$video
+        ]);
+    }
+
+    public function sendVoteEmail(Request $request, $video_id)
+    {
+        #Validate the form entries
+        $this->validate($request, [
+            'email'=>'required|email'
+        ]);
+        $email = $request->input('email');
+
+        # use email.voteEmail view
+        Mail::send('email.voteEmail', [
+            'subject'=>$request->input('subject'),
+            'message'=> $request->input('message')],
+            function($message) use ($email){
+                $message->to($email)
+                ->subject($request->input('subject'));
+            });
     }
 }

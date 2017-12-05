@@ -2,7 +2,7 @@
   <div class="thumbnail">
     <h5>recently added..</h5>
   </div>
-  @foreach($videos as $video)
+  @foreach($new_videos as $video)
     <div class="well">
         <iframe width="120" height="50" src="{{ $video['video_link'] }}" frameborder="0"
             allowfullscreen></iframe>

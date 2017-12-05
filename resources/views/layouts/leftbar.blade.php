@@ -9,11 +9,7 @@
   </div>
   <div class="well">
     <h4>Videos</h4>
-    <p><a href="/add-video/{{$athlete->id}}">Add Video</a></p>
-    <p>
-      <span class="label label-default">Sport</span>
-      <span class="label label-primary">Rank</span>
-    </p>
+    <a href="/add-video/{{$athlete->id}}"><span class="label label-primary">Add New Video</span></a>
   </div>
   <div class="well">
     <h4>Stats</h4>

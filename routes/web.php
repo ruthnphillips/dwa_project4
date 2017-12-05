@@ -31,6 +31,7 @@ Route::post('/store-stats/{id}', 'AthleteController@storeStats');
 
 Route::get('/send-vote-link/{id}', 'AthleteController@sendVoteLink');
 Route::get('/add-vote/{id}', 'AthleteController@addVote');
+Route::post('/send-vote-email/{id}', 'AthleteController@sendVoteEmail');
 
 Route::get('/debug', function () {
 
