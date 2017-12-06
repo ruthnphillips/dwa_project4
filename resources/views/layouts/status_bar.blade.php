@@ -3,7 +3,7 @@
     <div class="panel panel-default text-left">
       <div class="panel-body">
         <h2>
-            <p contenteditable="true">
+            <contenteditable="true">
                 @if(session('alert'))
                     <div class='alert alert-success'>
                         {{ session('alert') }}
@@ -11,7 +11,6 @@
                 @else
                     hello, you have {{ $count}} video(s).
                 @endif
-            </p>
         </h2>
       </div>
     </div>
