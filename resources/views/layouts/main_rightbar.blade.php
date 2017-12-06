@@ -4,8 +4,7 @@
   </div>
   @foreach($new_videos as $video)
     <div class="well">
-        <iframe width="120" height="50" src="{{ $video['video_link'] }}" frameborder="0"
-            allowfullscreen></iframe>
+        <iframe width="120" height="50" src="{{ $video['video_link'] }}" allowfullscreen></iframe>
         <p> added:{{$video['created_at']}}
     </div>
   @endforeach

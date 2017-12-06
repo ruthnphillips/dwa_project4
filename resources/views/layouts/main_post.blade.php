@@ -11,8 +11,7 @@
       </div>
       <div class="col-sm-9">
         <div class="well">
-            <p><iframe width="440" height="125" src="{{ $video['video_link'] }}" frameborder="0"
-                allowfullscreen></iframe><p>
+            <p><iframe width="440" height="125" src="{{ $video['video_link'] }}" allowfullscreen></iframe><p>
         </div>
       </div>
     </div>

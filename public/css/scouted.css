@@ -33,6 +33,10 @@ header {
     margin-top:20px;
 }
 
+iframe {
+    border: 0px;
+}
+
 .alert {
    width:40%;
 }
