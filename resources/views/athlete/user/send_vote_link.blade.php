@@ -14,13 +14,13 @@
 
             <div class='details'>* Required fields</div>
 
-            <!-- input to enter recipients -->
+            <!-- input to enter recipient email-->
             <div class="form-group required">
-                <label class="control-label col-sm-2" for="recipients">To:</label>
+                <label class="control-label col-sm-2" for="email">To:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="recipients" name='recipients'
-                        placeholder="example: abc@example.com" required="required" value='{{old('recipients')}}'>
-                    @include('modules.error-field', ['fieldName' => 'recipients'])
+                    <input type="text" class="form-control" id="email" name='email'
+                        placeholder="example: abc@example.com" required="required" value='{{old('email')}}'>
+                    @include('modules.error-field', ['fieldName' => 'email'])
                 </div>
             </div>
 

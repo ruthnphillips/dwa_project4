@@ -1,7 +1,6 @@
-<h1>hello me</h1>
+<h1>{{$subject}}</h1>
 
 <!-- display result -->
-<div>
-    <p>hello</p>
-    <p> Vote for my video here</p>
-</div>
+<form action="http://p4.ruthp.me/add-vote/{{ $video->id }}">
+    <input class='btn btn-primary btn-small' type="submit" value="Vote" />
+</form>

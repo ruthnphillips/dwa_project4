@@ -249,14 +249,17 @@ class AthleteController extends Controller
             'email'=>'required|email'
         ]);
         $email = $request->input('email');
+        $video = Video::find($video_id);
 
         # use email.voteEmail view
         Mail::send('email.voteEmail', [
-            'subject'=>$request->input('subject'),
-            'message'=> $request->input('message')],
-            function($message) use ($email){
-                $message->to($email)
-                ->subject($request->input('subject'));
-            });
+        'subject'=>$request->input('subject'),
+        'message'=> $request->input('message'),
+        'video'=> $video],
+        function($message) use ($email){
+            $message->to($email)
+            ->subject(config('app.name'));
+        });
+        return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'email sent to '. $email);
     }
 }
