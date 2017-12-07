@@ -17,6 +17,8 @@ class SportsTableSeeder extends Seeder
             ['Baseball'],
             ['Basketball'],
             ['Football'],
+            ['Soccer'],
+            ['Swimming'],
         ];
 
         $count = count($sports);

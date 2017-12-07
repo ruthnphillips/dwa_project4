@@ -19,4 +19,11 @@ class Athlete extends Model
         # Define a one-to-many relationship.
         return $this->hasMany('App\Stat');
     }
+
+    public function sports()
+    {
+        # Athlete has many Sports
+        # Define a one-to-many relationship.
+        return $this->hasMany('App\Sport')->withTimestamps();
+    }
 }

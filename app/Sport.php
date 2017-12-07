@@ -12,4 +12,11 @@ class Sport extends Model
         # Define a one-to-many relationship.
         return $this->hasMany('App\Video');
     }
+
+    public function athletes()
+    {
+        # Sport has many athletes
+        # Define a one-to-many relationship.
+        return $this->hasMany('App\Athletes')->withTimestamps();
+    }
 }
