@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Athlete;
 use App\Sport;
-use App\Stat;
 use App\Video;
 use App\VideoRanking;
 use Carbon\Carbon;
@@ -70,14 +69,11 @@ class AthleteController extends Controller
     {
         $athlete = Athlete::find($id);
         $videos = Video::where('athlete_id', '=', $id)->get();
-        $stats = Stat::where('athlete_id', '=', $id)->get();
 
         return view('athlete.user.show')->with([
             'athlete'=>$athlete,
             'videos'=>$videos,
-            'count' =>$videos->count(),
-            'stats' =>$stats
-
+            'count' =>$videos->count()
         ]);
     }
     //    //GET /edit-athlete
@@ -195,35 +191,6 @@ class AthleteController extends Controller
         Video::rankVideo();
 
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was deleted!!');
-    }
-
-    //    //GET /add-stats/{id}
-    public function addStats($id)
-    {
-        return view('athlete.user.add_stats')->with(['id' => $id]);
-    }
-
-    //  //Post /store-stats/{id}
-    public function storeStats(Request $request, $id)
-    {
-
-        #Validate the form entries
-        $this->validate($request, [
-            'score_description'=>'required',
-            'score'=>'required|numeric',
-            'match_date'=>'nullable|date_format:d/m/Y'
-        ]);
-
-        # Add new stats to the database
-        $stat = new Stat();
-        $stat->athlete_id = $id;
-        $stat->match_name = $request->input('match_name');
-        $stat->match_date = Carbon::parse($request->input('match_date'));
-        $stat->score_description = $request->input('score_description');
-        $stat->score = $request->input('score');
-        $stat->save();
-
-        return redirect('/show-athlete/'.$id)->with('alert', 'Your stats have been updated!!');
     }
 
     //  //Post /add_vote/{$video_id}

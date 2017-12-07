@@ -26,9 +26,6 @@ Route::get('/edit-video/{id}', 'AthleteController@editVideo');
 Route::put('/update-video/{id}', 'AthleteController@updateVideo');
 Route::get('/delete-video/{id}', 'AthleteController@deleteVideo');
 
-Route::get('/add-stats/{id}', 'AthleteController@addStats');
-Route::post('/store-stats/{id}', 'AthleteController@storeStats');
-
 Route::get('/send-vote-link/{id}', 'AthleteController@sendVoteLink');
 Route::get('/add-vote/{id}', 'AthleteController@addVote');
 Route::post('/send-vote-email/{id}', 'AthleteController@sendVoteEmail');
