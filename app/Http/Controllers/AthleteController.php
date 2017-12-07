@@ -35,7 +35,10 @@ class AthleteController extends Controller
         //    //GET /add-athlete
     public function addAthlete()
     {
-        return view('athlete.main.add_athlete');
+        $sportsForCheckboxes = Sport::getForCheckboxes();
+        return view('athlete.main.add_athlete')->with([
+            'sportsForCheckboxes' => $sportsForCheckboxes
+        ]);
     }
 
 
@@ -58,6 +61,7 @@ class AthleteController extends Controller
         $athlete->school = $request->input('school');
         $athlete->gpa = $request->input('gpa');
         $athlete->save();
+        $athlete->sports()->sync($request->input('sports'));
         return redirect('/show-athlete/'.$athlete->id)->with('alert', 'Welcome '. $athlete->name. '!!');
     }
 

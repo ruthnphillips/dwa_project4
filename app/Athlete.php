@@ -23,7 +23,7 @@ class Athlete extends Model
     public function sports()
     {
         # Athlete has many Sports
-        # Define a one-to-many relationship.
-        return $this->hasMany('App\Sport')->withTimestamps();
+        # Define a many-to-many relationship.
+        return $this->belongsToMany('App\Sport')->withTimestamps();
     }
 }

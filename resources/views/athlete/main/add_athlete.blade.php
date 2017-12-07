@@ -69,6 +69,22 @@
                 </div>
             </div>
 
+            <!-- input to enter sports -->
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="sports">Sports</label>
+                <div class="col-sm-10">
+                    @foreach ($sportsForCheckboxes as $id => $name)
+                        <input
+                            type='checkbox'
+                            value='{{ $id }}'
+                            name='sports[]'
+                            {{ (isset($sportsForThisAthlete) and in_array($name, $sportsForThisAthlete)) ? 'CHECKED' : '' }}
+                        >
+                        {{ $name }} <br>
+                    @endforeach
+                </div>
+            </div>
+
             <!-- submit button -->
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">

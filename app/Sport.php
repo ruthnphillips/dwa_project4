@@ -16,7 +16,19 @@ class Sport extends Model
     public function athletes()
     {
         # Sport has many athletes
-        # Define a one-to-many relationship.
-        return $this->hasMany('App\Athletes')->withTimestamps();
+        # Define a many-to-many relationship.
+        return $this->belongsToMany('App\Athlete')->withTimestamps();
+    }
+
+    public static function getForCheckboxes()
+    {
+        $sports = Sport::orderBy('name')->get();
+
+        $sportsForCheckboxes = [];
+
+        foreach ($sports as $sport) {
+            $sportsForCheckboxes[$sport['id']] = $sport->name;
+        }
+        return $sportsForCheckboxes;
     }
 }
