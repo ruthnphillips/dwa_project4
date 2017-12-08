@@ -8,7 +8,7 @@
 @section('content')
     <div class="container">
         <form class="form-horizontal" method='POST' action='/send-vote-email/{{$video->id}}'>
-            <h2 class="text-center"> Send Email to Friends to Vote for your Video </h2>
+            <h2 class="text-center"> Send Email to Vote for your Video </h2>
 
             {{ csrf_field() }}
 
@@ -31,16 +31,6 @@
                     <input type="text" class="form-control" id="subject" name='subject'
                         required="required" value='Vote for my Video'>
                     @include('modules.error-field', ['fieldName' => 'subject'])
-                </div>
-            </div>
-
-            <!-- input to enter Message -->
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="message">Message:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="message" name='message'
-                    value='{{old('message')}}'>
-                    @include('modules.error-field', ['fieldName' => 'message'])
                 </div>
             </div>
 

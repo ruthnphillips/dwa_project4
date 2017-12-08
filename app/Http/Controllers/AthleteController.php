@@ -225,7 +225,6 @@ class AthleteController extends Controller
         # use email.voteEmail view
         Mail::send('email.voteEmail', [
         'subject'=>$request->input('subject'),
-        'message'=> $request->input('message'),
         'video'=> $video],
         function($message) use ($email){
             $message->to($email)
