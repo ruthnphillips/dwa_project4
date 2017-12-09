@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sport extends Model
 {
+    /**
+    * Get the videos that belong to this sport
+    */
     public function videos()
     {
         # Sport has many Videos
@@ -13,6 +16,9 @@ class Sport extends Model
         return $this->hasMany('App\Video');
     }
 
+    /**
+    * Get the athletes that belong to this sport
+    */
     public function athletes()
     {
         # Sport has many athletes
@@ -20,15 +26,18 @@ class Sport extends Model
         return $this->belongsToMany('App\Athlete')->withTimestamps();
     }
 
-    public static function getForCheckboxes()
+    /**
+    * Get all the sports to construct the checkboxes or dropdown for a view
+    */
+    public static function getForView()
     {
         $sports = Sport::orderBy('name')->get();
 
-        $sportsForCheckboxes = [];
+        $sportsForView = [];
 
         foreach ($sports as $sport) {
-            $sportsForCheckboxes[$sport['id']] = $sport->name;
+            $sportsForView[$sport['id']] = $sport->name;
         }
-        return $sportsForCheckboxes;
+        return $sportsForView;
     }
 }

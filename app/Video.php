@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
+    /**
+    * Get the athlete that owns this video
+    */
     public function athlete()
     {
         # Video belongs to Athlete
@@ -13,6 +16,10 @@ class Video extends Model
         return $this->belongsTo('App\Athlete');
     }
 
+    /**
+    * Get the sport that this video is a part of.
+    * This video belongs to this sport
+    */
     public function sport()
     {
         # Video belongs to Sport
@@ -20,6 +27,9 @@ class Video extends Model
         return $this->belongsTo('App\Sport');
     }
 
+    /**
+    * Rank the video based on votes categorized by the type of sport and position
+    */
     public static function rankVideo()
     {
         $temptable = \DB::update('UPDATE videos dest, (SELECT a.video_link,

@@ -16,25 +16,27 @@ class AthleteController extends Controller
     //    /
     public function index()
     {
-
-        //sort video by Ranking
+        //rank video per votes
         Video::rankVideo();
+
+        //use eager loading for multiple relationships
+        $allVideos= Video::with(['athlete', 'sport'])->orderBy('rank')->orderBy('sport_id')->get();
         $count = Sport::all()->count();
-        $videos = Video::orderBy('rank')->orderBy('sport_id')->limit($count)->get();
+        $bestVideosPerSport = $allVideos->take($count);
 
         // get the 3 most recent videos added
-        $new_videos = Video::orderBy('created_at', 'desc')->limit(3)->get();
+        $newVideos = $allVideos->sortByDesc('created_at')->take(3);
 
         return view('athlete.main.index')->with([
-            'new_videos'=>$new_videos,
-            'videos'=>$videos
+            'new_videos'=>$newVideos,
+            'videos'=>$bestVideosPerSport
         ]);
     }
 
         //    //GET /add-athlete
     public function addAthlete()
     {
-        $sportsForCheckboxes = Sport::getForCheckboxes();
+        $sportsForCheckboxes = Sport::getForView();
         return view('athlete.main.add_athlete')->with([
             'sportsForCheckboxes' => $sportsForCheckboxes
         ]);
@@ -67,13 +69,13 @@ class AthleteController extends Controller
     // //GET /show-athlete/{id}
     public function showAthlete($id)
     {
-        $athlete = Athlete::find($id);
-        $videos = Video::where('athlete_id', '=', $id)->get();
+        //use eager loading for nested and multiple relationships
+        $athlete = Athlete::with(['videos.sport', 'sports'])->find($id);
+        $count = $athlete->videos()->count();
 
         return view('athlete.user.show')->with([
             'athlete'=>$athlete,
-            'videos'=>$videos,
-            'count' =>$videos->count()
+            'count' =>$count
         ]);
     }
     //    //GET /edit-athlete
@@ -138,7 +140,7 @@ class AthleteController extends Controller
         $video->video_link = $request->input('video_link');
         $video->save();
 
-        //sort video by Ranking
+        //rank video
         Video::rankVideo();
 
         return redirect('/show-athlete/'.$id)->with('alert', 'Your video was successfully added!!');
@@ -175,7 +177,8 @@ class AthleteController extends Controller
         $video->video_link = $request->input('video_link');
         $video->voting_link = $request->input('voting_link');
         $video->save();
-        //sort video by Ranking
+
+        //rank video
         Video::rankVideo();
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was updated!!');
     }
@@ -185,6 +188,7 @@ class AthleteController extends Controller
     {
         $video = Video::find($id);
         $athlete = Athlete::find($video->athlete_id);
+
         $result = Video::destroy($id);
 
         //sort video by Ranking
@@ -194,10 +198,10 @@ class AthleteController extends Controller
     }
 
     //  //Post /add_vote/{$video_id}
-    public function addVote($video_id)
+    public function addVote($videoId)
     {
         # find corresponding video entry in videos table and increment vote by 1
-        $video = Video::find($video_id);
+        $video = Video::find($videoId);
         $video->votes += 1;
         $video->save();
         //sort video by Ranking
@@ -205,31 +209,32 @@ class AthleteController extends Controller
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Thanks for voting!!');
     }
 
-    public function sendVoteLink($video_id)
+    public function sendVoteLink($videoId)
     {
-        $video = Video::find($video_id);
+        $video = Video::find($videoId);
         return view('athlete.user.send_vote_link')->with([
             'video'=>$video
         ]);
     }
 
-    public function sendVoteEmail(Request $request, $video_id)
+    public function sendVoteEmail(Request $request, $videoId)
     {
         #Validate the form entries
         $this->validate($request, [
             'email'=>'required|email'
         ]);
         $email = $request->input('email');
-        $video = Video::find($video_id);
+        $video = Video::find($videoId);
 
         # use email.voteEmail view
-        Mail::send('email.voteEmail', [
-        'subject'=>$request->input('subject'),
-        'video'=> $video],
-        function($message) use ($email){
-            $message->to($email)
-            ->subject(config('app.name'));
-        });
+        Mail::send(
+            'email.voteEmail',
+            ['subject' => $request->input('subject'),
+            'video'=> $video],
+            function ($message) use ($email) {
+                $message->to($email)->subject(config('app.name'));
+            }
+        );
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'email sent to '. $email);
     }
 }

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container">
-        <h2> Add Video </h2>
+        <h2> Edit Video </h2>
         <form class="form-horizontal" method='POST' action='/update-video/{{$video->id}}'>
             {{ method_field('put') }}
 

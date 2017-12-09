@@ -1,4 +1,4 @@
-@foreach($videos as $video)
+@foreach($athlete->videos as $video)
     <div class="row">
       <div class="col-sm-3">
         <div class="well">
@@ -15,7 +15,7 @@
                 <a href='/add-vote/{{$video['id'] }}'><span class="label label-default">Vote</span></a>
                 <a href='/send-vote-link/{{$video['id'] }}'><span class="label label-success">Send Voting Link</span></a>
             @else
-                <span class="label label-primary">No voting allowed</span>
+                <span class="label label-warning">No voting allowed</span>
             @endif
             <p>
                 <a href='/edit-video/{{$video['id'] }}'><span class="label label-primary">Update</span></a>

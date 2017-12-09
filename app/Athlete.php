@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Athlete extends Model
 {
+    /**
+    * Get the videos that belong to this athlete
+    */
     public function videos()
     {
         # Athlete has many Videos
@@ -13,6 +16,9 @@ class Athlete extends Model
         return $this->hasMany('App\Video');
     }
 
+    /**
+    * Get the sports that this athlete participates in
+    */
     public function sports()
     {
         # Athlete has many Sports

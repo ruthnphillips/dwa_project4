@@ -10,7 +10,7 @@
     <div class="container">
         <form class="form-horizontal" method='POST' action='/update-athlete/{{$athlete->id}}'>
             <h2 class="text-center"> Athlete Registration </h2>
-
+            {{ method_field('put') }}
             {{ csrf_field() }}
 
             <div class='details'>* Required fields</div>
