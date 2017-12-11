@@ -34,7 +34,7 @@ Route::put('/update-video/{id}', 'AthleteController@updateVideo');
 
 #delete video
 Route::get('/delete-video/{id}', 'AthleteController@deleteVideo');
-Route::post('/destroy-video/{id}', 'AthleteController@destroyVideo');
+Route::delete('/destroy-video/{id}', 'AthleteController@destroyVideo');
 
 #send voting link
 Route::get('/send-vote-link/{id}', 'AthleteController@sendVoteLink');

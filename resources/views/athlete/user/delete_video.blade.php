@@ -13,6 +13,7 @@
           <div class="col-sm-3">
             <div class="well">
                 <form method='POST' action='/destroy-video/{{$video->id}}'>
+                    {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <input type='submit' value='Destroy it!' class='btn btn-danger btn-small'>
                 </form>
