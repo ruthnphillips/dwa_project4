@@ -187,6 +187,17 @@ class AthleteController extends Controller
     public function deleteVideo($id)
     {
         $video = Video::find($id);
+        return view('athlete.user.delete_video')->with([
+            'video'=>$video,
+            'previousUrl' =>
+                url()->previous() == url()->current() ? '/show-athlete/$video->athlete_id' : url()->previous(),
+        ]);
+    }
+
+    //  //Post /destroy-video/{$id}
+    public function destroyVideo($id)
+    {
+        $video = Video::find($id);
         $athlete = Athlete::find($video->athlete_id);
 
         $result = Video::destroy($id);
@@ -196,7 +207,6 @@ class AthleteController extends Controller
 
         return redirect('/show-athlete/'.$video->athlete_id)->with('alert', 'Your video was deleted!!');
     }
-
     //  //Post /add_vote/{$video_id}
     public function addVote($videoId)
     {

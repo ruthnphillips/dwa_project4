@@ -10,25 +10,38 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+#home page
 Route::get('/', 'AthleteController@index');
 
+#add a new athlete
 Route::get('/add-athlete', 'AthleteController@addAthlete');
 Route::post('/store-athlete', 'AthleteController@storeAthlete');
+
+#show athlete page
 Route::get('/show-athlete/{id}', 'AthleteController@showAthlete');
+
+#edit athlete profile
 Route::get('/edit-athlete/{id}', 'AthleteController@editAthlete');
 Route::put('/update-athlete/{id}', 'AthleteController@updateAthlete');
 
+#add video
 Route::get('/add-video/{id}', 'AthleteController@addVideo');
 Route::post('/store-video/{id}', 'AthleteController@storeVideo');
 
+#edit video information
 Route::get('/edit-video/{id}', 'AthleteController@editVideo');
 Route::put('/update-video/{id}', 'AthleteController@updateVideo');
-Route::get('/delete-video/{id}', 'AthleteController@deleteVideo');
 
+#delete video
+Route::get('/delete-video/{id}', 'AthleteController@deleteVideo');
+Route::post('/destroy-video/{id}', 'AthleteController@destroyVideo');
+
+#send voting link
 Route::get('/send-vote-link/{id}', 'AthleteController@sendVoteLink');
-Route::get('/add-vote/{id}', 'AthleteController@addVote');
 Route::post('/send-vote-email/{id}', 'AthleteController@sendVoteEmail');
+
+#tally vote
+Route::get('/add-vote/{id}', 'AthleteController@addVote');
 
 Route::get('/debug', function () {
 
